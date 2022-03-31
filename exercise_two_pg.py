@@ -1,7 +1,7 @@
 from tkinter import *
 
 ws = Tk()
-ws.geometry('400x300')
+ws.geometry('600x600')
 ws.title('PythonGuides')
 ws['bg'] = '#ffbf00'
 
@@ -10,21 +10,24 @@ f = ("Times bold", 14)
 
 def nextPage():
     ws.destroy()
-    import page3
+    import page1
 
 
 def prevPage():
     ws.destroy()
-    import page1
+    import home_pg
 
+def homePage():
+    ws.destroy()
+    import home_pg
 
 Label(
     ws,
-    text="This is Second page",
+    text="This is exercise two page",
+    font=f,
     padx=20,
     pady=20,
-    bg='#ffbf00',
-    font=f
+    bg='#bfff00'
 ).pack(expand=True, fill=BOTH)
 
 Button(
@@ -33,6 +36,9 @@ Button(
     font=f,
     command=nextPage
 ).pack(fill=X, expand=TRUE, side=LEFT)
+
+
+
 Button(
     ws,
     text="Next Page",

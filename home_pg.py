@@ -1,41 +1,42 @@
 from tkinter import *
 
 ws = Tk()
-ws.geometry('400x300')
+ws.geometry('600x600')
 ws.title('PythonGuides')
-ws['bg'] = '#ffbf00'
+ws['bg'] = '#5d8a82'
 
 f = ("Times bold", 14)
 
 
 def nextPage():
     ws.destroy()
-    import page3
+    import exercise_one_pg
 
 
 def prevPage():
     ws.destroy()
-    import page1
+    import exercise_two_pg
 
 
 Label(
     ws,
-    text="This is Second page",
+    text="ROMbell Home",
     padx=20,
     pady=20,
-    bg='#ffbf00',
+    bg='#5d8a82',
     font=f
 ).pack(expand=True, fill=BOTH)
 
 Button(
     ws,
-    text="Previous Page",
+    text="Exercise 1: Reverse Fly",
     font=f,
     command=nextPage
 ).pack(fill=X, expand=TRUE, side=LEFT)
+
 Button(
     ws,
-    text="Next Page",
+    text="Exercise 2: Side-Lying Rotation",
     font=f,
     command=prevPage
 ).pack(fill=X, expand=TRUE, side=LEFT)

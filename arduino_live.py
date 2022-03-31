@@ -16,6 +16,7 @@ import datetime
 # creating objects
 import global_var
 import matplotlib
+import global_func
 
 
 matplotlib.use("TkAgg")  # the backend of matplotlib
@@ -24,7 +25,7 @@ from matplotlib.figure import Figure
 from matplotlib import style
 import tkinter as tk
 
-arduinoData = serial.Serial('com6', 115200) # where the information is coming from and the baud rate
+# arduinoData = serial.Serial('com6', 115200) # where the information is coming from and the baud rate
 euler_x_array = []
 euler_z_array = []
 plt.ion()  # tell matplotlib that you want interactive mode to plot live data
@@ -40,42 +41,42 @@ import serial as sr
 import time
 
 
+ # -------------------------- youtube video --------------------------
 data = np.array([])
 condition = False
 
-def plot_data():
-    global condition
-    global data
-
-    if condition:
-        arduinoString = arduinoData.readline()
-        data_array = arduinoString.decode().split(',')  # split on comma
-
-        # keeps only 100 data points
-        if len(data) < 100:
-            data = np.append(data, float(data_array[0]))
-        else:
-            data[0:99] = data[1:100]
-            data[99] = float(data_array[0])
-
-        # storing in variables and storing it as floating point data
-        euler_x_point = float(data_array[0])
-
-        global_var.lines.set_xdata(np.arrange(start=0, stop=len(data),step=1))
-        global_var.lines.set_ydata(data)
-
-        global_var.canvas.draw()
-
-    global_var.root.after(1, plot_data)
-
-def plot_start():
-    global condition
-    condition = True
-    arduinoData.reset_input_buffer()
-
-def plot_end():
-    global condition
-    condition = False
+# def plot_data():
+#     global condition
+#     global data
+#
+#     if condition:
+#         arduinoString = global_func.arduinoData.readline()
+#         data_array = arduinoString.decode().split(',')  # split on comma
+#
+#         # keeps only 100 data points
+#         if len(data) < 100:
+#             data = np.append(data, float(data_array[0]))
+#         else:
+#             data[0:99] = data[1:100]
+#             data[99] = float(data_array[0])
+#
+#         # storing in variables and storing it as floating point data
+#         euler_x_point = float(data_array[0])
+#
+#         global_var.lines.set_xdata(np.arrange(start=0, stop=len(data),step=1))
+#         global_var.lines.set_ydata(data)
+#         global_var.canvas.draw()
+#
+#     global_var.root.after(1, plot_data)
+#
+# def plot_start():
+#     global condition
+#     condition = True
+#     global_func.arduinoData.reset_input_buffer()
+#
+# def plot_end():
+#     global condition
+#     condition = False
 
 
 
@@ -111,10 +112,10 @@ def collect_data(collecting_data):
 
     while collecting_data: # loop always runs
 
-        while (arduinoData.inWaiting() == 0):   # wait here until there is data make a separate conditional for when the person presses the button
+        while (global_func.arduinoData.inWaiting() == 0):   # wait here until there is data make a separate conditional for when the person presses the button
             pass  # do nothing
 
-        arduinoString = arduinoData.readline()  # reads the data coming in
+        arduinoString = global_func.arduinoData.readline()  # reads the data coming in
         data_array = arduinoString.decode().split(',')  # split on comma
 
         # storing in variables and storing it as floating point data
@@ -232,10 +233,10 @@ def collect_data_slow(collecting_data):
     while collecting_data:  # loop always runs
 
         while (
-                arduinoData.inWaiting() == 0):  # wait here until there is data make a separate conditional for when the person presses the button
+                global_func.arduinoData.inWaiting() == 0):  # wait here until there is data make a separate conditional for when the person presses the button
             pass  # do nothing
 
-        arduinoString = arduinoData.readline()  # reads the data coming in
+        arduinoString = global_func.arduinoData.readline()  # reads the data coming in
         data_array = arduinoString.decode().split(',')  # split on comma
 
         # storing in variables and storing it as floating point data

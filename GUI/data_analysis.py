@@ -64,6 +64,7 @@ def rom_analysis():
 
     # saves graph for results page to read in
     save_graph()
+    force_save_graph()
 
 
 def force_analysis():
@@ -81,6 +82,50 @@ def force_analysis():
 
     return str(round(average, 2))
 
+def force_save_graph():
+    # reading the text file
+    value_data = []
+    date_data = []
+
+    my_file = open("force_history.txt", "r")
+
+    content = my_file.read().splitlines()
+
+    # converting into x and y data sets
+    for data_point in content:
+        data = data_point.split(',')
+        value_data.append(data[0])
+        date_data.append(data[1])
+
+    value_data_float = []
+    for value in value_data:
+        value_data_float.append(float(value))
+
+    x_values = [datetime.datetime.strptime(d, "%Y-%m-%d").date() for d in date_data]
+    y_values = value_data_float
+
+    # global_var.x_data = x_values
+    # global_var.y_data = y_values
+
+    ax = plt.gca()
+
+    formatter = mdates.DateFormatter("%Y-%m-%d")
+
+    ax.xaxis.set_major_formatter(formatter)
+
+    locator = mdates.DayLocator()
+
+    ax.xaxis.set_major_locator(locator)
+
+    plt.plot(x_values, y_values, "bo-")
+
+    # plt.ylim(0, 360)
+    plt.title("Force Data over Time")
+
+    # Sheridan figure out why it's graphing the incorrect text file
+    plt.savefig('force.png')
+
+    plt.close()
 
 
 def save_graph():
@@ -105,8 +150,6 @@ def save_graph():
     value_data_float = []
     for value in value_data:
         value_data_float.append(float(value))
-
-    # print("this is the value_data_float",value_data_float)
 
     x_values = [datetime.datetime.strptime(d, "%Y-%m-%d").date() for d in date_data]
     y_values = value_data_float
@@ -133,5 +176,7 @@ def save_graph():
         plt.savefig('euler_reverse.png')
     else:
         plt.savefig('euler_rotation.png')
+
+    plt.close()
 
 

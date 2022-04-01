@@ -1,4 +1,5 @@
 from tkinter import *
+import global_var
 
 # ----- functions ------
 def btn_clicked():
@@ -38,6 +39,7 @@ b0 = Button(
     image = img0,
     borderwidth = 0,
     highlightthickness = 0,
+    # command = lambda:[global_var.set_exercise_one_on(),reverse_fly()]
     command = reverse_fly,
     relief = "flat")
 
@@ -52,6 +54,7 @@ b1 = Button(
     borderwidth = 0,
     highlightthickness = 0,
     command = side_lying,
+    # command = lambda:[global_var.set_exercise_one_off(),side_lying],
     relief = "flat")
 
 b1.place(

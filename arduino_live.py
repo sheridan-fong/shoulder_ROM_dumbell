@@ -31,19 +31,19 @@ euler_z_array = []
 plt.ion()  # tell matplotlib that you want interactive mode to plot live data
 count = 0  # counter for data points
 
-# --------- youtube tutorial for live plotting
-import tkinter as tk
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
-from matplotlib.figure import Figure
-import tkinter as tk
-import numpy as np
-import serial as sr
-import time
+# # --------- youtube tutorial for live plotting
+# import tkinter as tk
+# from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+# from matplotlib.figure import Figure
+# import tkinter as tk
+# import numpy as np
+# import serial as sr
+# import time
 
 
- # -------------------------- youtube video --------------------------
-data = np.array([])
-condition = False
+#  # -------------------------- youtube video --------------------------
+# data = np.array([])
+# condition = False
 
 # def plot_data():
 #     global condition

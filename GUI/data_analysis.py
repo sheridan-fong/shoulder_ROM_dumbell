@@ -13,7 +13,8 @@ def rom_analysis_exercise_one():
     minimum = min(global_var.euler_data)
     maximum = max(global_var.euler_data)
     global_var.rom = abs(maximum - minimum)
-    global_var.rom_value_text = "{}".format(global_var.rom)
+    answer = str(round(global_var.rom, 2))
+    global_var.rom_value_text = "{}".format(answer)
 
     # choosing the correct phrase to output to the screen
     if global_var.rom >= 90:
@@ -28,10 +29,18 @@ def rom_analysis_exercise_one():
     # have a counter that plots your data over time - or figure out how to plot without it
 
     # writing the value to a text file ** Sheridan needs to add date
-    with open('reverse_fly_history.txt', 'a') as file:
-        rom_text = "{},{}".format(global_var.rom, date.today())
-        file.write(rom_text)
-        file.write("\n")
+
+    if global_var.exercise_one:
+        with open('reverse_fly_history.txt', 'a') as file:
+            rom_text = "{},{}".format(global_var.rom, date.today())
+            file.write(rom_text)
+            file.write("\n")
+    else:
+        with open('rotation_history.txt', 'a') as file:
+            rom_text = "{},{}".format(global_var.rom, date.today())
+            file.write(rom_text)
+            file.write("\n")
+
 
     # printing to the screen to test splitting
     rom_graph()
@@ -41,7 +50,6 @@ def rom_graph():
     value_data = []
     date_data = []
 
-
     if global_var.exercise_one:
         my_file = open("reverse_fly_history.txt", "r")
     else:
@@ -50,8 +58,6 @@ def rom_graph():
     content = my_file.read().splitlines()
 
     # converting into x and y data sets
-    # print(content)
-
     for data_point in content:
         data = data_point.split(',')
         value_data.append(data[0])
@@ -61,7 +67,7 @@ def rom_graph():
     for value in value_data:
         value_data_float.append(float(value))
 
-    print("this is the value_data_float",value_data_float)
+    # print("this is the value_data_float",value_data_float)
 
     x_values = [datetime.datetime.strptime(d, "%Y-%m-%d").date() for d in date_data]
     y_values = value_data_float

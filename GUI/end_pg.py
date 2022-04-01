@@ -1,4 +1,7 @@
 from tkinter import *
+from PIL import ImageTk, Image
+
+import global_var
 
 
 def btn_clicked():
@@ -13,6 +16,7 @@ window = Tk()
 
 window.geometry("792x612")
 window.configure(bg = "#ffffff")
+f = ("Times bold", 14)
 canvas = Canvas(
     window,
     bg = "#ffffff",
@@ -40,6 +44,22 @@ b0.place(
     x = 666, y = 8,
     width = 175,
     height = 44)
+
+img = Image.open("euler.png")
+img = img.resize((250,250), Image.ANTIALIAS)
+img = ImageTk.PhotoImage(img)
+label1 = Label(image=img)
+label1.image = img
+label1.place(x=26,y=299)
+
+Label(
+    window,
+    text=global_var.rom_value_text,
+    font=f,
+    # padx=20,
+    # pady=50,
+    bg='#FDF6EC'
+).place(x=375, y = 195)
 
 window.resizable(False, False)
 window.mainloop()

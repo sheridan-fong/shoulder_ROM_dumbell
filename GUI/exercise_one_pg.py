@@ -5,9 +5,12 @@ from matplotlib.figure import Figure
 import tkinter as tk
 import numpy as np
 import global_func
+import data_analysis
 
 
 # ----- Main gui code ------------
+import global_var
+
 window = Tk()
 window.geometry("792x612")
 window.configure(bg = "#ffffff")
@@ -61,6 +64,9 @@ def plot_data():
             data[0:99] = data[1:100]
             data[99] = float(data_array[0])
 
+        global_var.euler_data.append(float(data_array[0]))
+    
+
         lines.set_xdata(np.arange(start=0, stop=len(data),step=1))
         lines.set_ydata(data)
         canvas.draw()
@@ -69,6 +75,7 @@ def plot_data():
 
 def plot_start():
     global condition
+    global_var.data_on()
     condition = True
     global_func.arduinoData.reset_input_buffer()
 
@@ -106,7 +113,7 @@ b1 = Button(
     image = img1,
     borderwidth = 0,
     highlightthickness = 0,
-    command = lambda:[plot_end(),results(),btn_clicked()],
+    command = lambda:[plot_end(), data_analysis.rom_analysis_exercise_one(),results(), btn_clicked()],
     relief = "flat")
 
 b1.place(

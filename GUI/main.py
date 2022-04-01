@@ -6,12 +6,22 @@ def btn_clicked():
     print("Button Clicked in main")
 
 def side_lying():
+    set_exercise_one_off()
+    print(global_var.exercise_one)
     window.destroy()
     import exercise_two_pg
 
 def reverse_fly():
+    set_exercise_one_on()
+    print(global_var.exercise_one)
     window.destroy()
     import exercise_one_pg
+
+def set_exercise_one_off():
+    global_var.exercise_one = False
+
+def set_exercise_one_on():
+    exercise_one = True
 
 
 # ----- setting up the window --------
@@ -39,7 +49,7 @@ b0 = Button(
     image = img0,
     borderwidth = 0,
     highlightthickness = 0,
-    # command = lambda:[global_var.set_exercise_one_on(),reverse_fly()]
+    # command = lambda:[global_var.set_exercise_one_on(),reverse_fly],
     command = reverse_fly,
     relief = "flat")
 

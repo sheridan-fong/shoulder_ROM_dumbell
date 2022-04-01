@@ -63,6 +63,8 @@ def plot_data():
             data[99] = float(data_array[0])
 
         global_var.euler_data.append(float(data_array[0]))
+        # force data
+        global_var.force_data.append(float(data_array[1]))
 
         lines.set_xdata(np.arange(start=0, stop=len(data),step=1))
         lines.set_ydata(data)
@@ -106,7 +108,7 @@ b1 = Button(
     image = img1,
     borderwidth = 0,
     highlightthickness = 0,
-    command = lambda:[plot_end(), data_analysis.rom_analysis_exercise_one(),results()],
+    command = lambda:[plot_end(), data_analysis.rom_analysis(), results()],
     relief = "flat")
 
 b1.place(

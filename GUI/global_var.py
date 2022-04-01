@@ -1,6 +1,8 @@
 euler_data = []
+force_data = []
 rom = 0
 rom_value_text = ""
+force_value_text=""
 exercise_one = True
 
 def set_exercise_one_off():

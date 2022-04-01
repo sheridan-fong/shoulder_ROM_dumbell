@@ -45,7 +45,11 @@ b0.place(
     width = 175,
     height = 44)
 
-img = Image.open("euler.png")
+if global_var.exercise_one:
+    img = Image.open("euler_reverse.png")
+elif global_var.exercise_one == False:
+    img = Image.open("euler_rotation.png")
+
 img = img.resize((250,250), Image.ANTIALIAS)
 img = ImageTk.PhotoImage(img)
 label1 = Label(image=img)

@@ -38,7 +38,7 @@ ax.set_title('Degrees vs. # of Data Points')
 # ax.set_xlabel('Data Points')
 ax.set_ylabel('Degrees')
 ax.set_ylim(-180, 360)
-ax.set_xlim(0,100)
+ax.set_xlim(0,50)
 lines = ax.plot([],[])[0]  # this gives an array that is varying moved as global variable
 
 canvas = FigureCanvasTkAgg(fig, master=window)    # A tk.DrawingArea
@@ -49,6 +49,7 @@ canvas.draw()
 data = np.array([])
 condition = False
 
+
 def plot_data():
     global condition
     global data
@@ -58,11 +59,11 @@ def plot_data():
         data_array = arduinoString.decode().split(',')  # split on comma
 
         # keeps only 100 data points
-        if len(data) < 100:
+        if len(data) < 50:
             data = np.append(data, float(data_array[0]))
         else:
-            data[0:99] = data[1:100]
-            data[99] = float(data_array[0])
+            data[0:49] = data[1:50]
+            data[49] = float(data_array[0])
 
         global_var.euler_data.append(float(data_array[0]))
         # force data
@@ -85,16 +86,32 @@ def plot_end():
     global condition
     condition = False
 
+    data_analysis.rom_analysis()
+    results()
+    btn_clicked()
+
 
 # ------ functions for button clicking ------
 def btn_clicked():
     print("Button Clicked")
 
+#https://stackoverflow.com/questions/63628566/how-to-handle-invalid-command-name-error-while-executing-after-script-in-tk
 def results():
     window.destroy()
     import end_pg
 
-# ------ no functions ------
+def callback():
+    global after_id
+    var.set(var.get() + 1)
+    after_id = window.after(500,callback)
+
+def quit():
+    "Cancel all scheduled callbacks and quit."
+    window.after_cancel(after_id)
+    window.destroy()
+
+
+# ------ no functions just tkinter window stuff ------
 
 
 img0 = PhotoImage(file =f"start_btn.png")
@@ -115,7 +132,8 @@ b1 = Button(
     image = img1,
     borderwidth = 0,
     highlightthickness = 0,
-    command = lambda:[plot_end(), data_analysis.rom_analysis(), results(), btn_clicked()],
+    command = plot_end,
+    # command = lambda:[plot_end(), data_analysis.rom_analysis(), results(), btn_clicked()],
     relief = "flat")
 
 b1.place(

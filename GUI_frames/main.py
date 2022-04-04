@@ -28,12 +28,24 @@ for frame in (home, exercise_one, exercise_two, result):
 show_frame(home)
 
 # -------- setting up home page ------------
+
+# --- background image --
 background_img = ImageTk.PhotoImage(Image.open("main_bkgd.png"))
-label1 = Label(home, image=background_img)
-label1.image = background_img
-label1.place(x=0,y=0)
+frame1_title = tk.Label(home, text="this is frame one", image = background_img)
+frame1_title.pack(fill = 'x')
 
+# -- buttons --
 
+img0 = PhotoImage(file =f"reverse_fly_btn.png")
+img1 = PhotoImage(file =f"side_lying_btn.png")
+
+b0 = Button(home,image = img0, borderwidth = 0,highlightthickness = 0,
+    command = exercise_one,relief = "flat")
+b0.place(x = 329, y = 422,width = 200,height = 76)
+
+b1 = Button(home,image = img1, borderwidth = 0,highlightthickness = 0,
+    command = exercise_two, relief = "flat")
+b1.place(x = 561, y = 422,width = 200, height = 76)
 
 
 window.mainloop()

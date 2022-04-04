@@ -45,9 +45,18 @@ def plot_data():
         # force data
         global_var.force_data.append(float(data_array[1]))
 
-        lines.set_xdata(np.arange(start=0, stop=len(data), step=1))
-        lines.set_ydata(data)
-        canvas.draw()
+        if global_var.exercise_one:
+            lines_1.set_xdata(np.arange(start=0, stop=len(data), step=1))
+            lines_1.set_ydata(data)
+        else:
+            lines_2.set_xdata(np.arange(start=0, stop=len(data), step=1))
+            lines_2.set_ydata(data)
+
+        if global_var.exercise_one:
+            print(global_var.exercise_one)
+            canvas_one.draw()
+        else:
+            canvas_two.draw()
 
     global AFTER
     AFTER = window.after(1, plot_data)
@@ -173,56 +182,55 @@ b2 = Button(exercise_one, image=results_btn, borderwidth=0, highlightthickness=0
 b2.place(x=526, y=190, width=200, height=76)
 
 # adding in graph
-fig = Figure()
-ax = fig.add_subplot(111)
+fig_1 = Figure()
+ax_1 = fig_1.add_subplot(111)
 
-ax.set_title('Degrees vs. # of Data Points')
-ax.set_ylabel('Degrees')
-ax.set_ylim(-180, 360)
-ax.set_xlim(0, 50)
-lines = ax.plot([], [])[0]  # this gives an array that is varying moved as global variable
+ax_1.set_title('Degrees vs. # of Data Points')
+ax_1.set_ylabel('Degrees')
+ax_1.set_ylim(-180, 360)
+ax_1.set_xlim(0, 50)
+lines_1 = ax_1.plot([], [])[0]  # this gives an array that is varying moved as global variable
 
-canvas = FigureCanvasTkAgg(fig, master=exercise_one)  # A tk.DrawingArea
-canvas.get_tk_widget().place(x=475, y=270, width=300, height=325)
-canvas.draw()
+canvas_one = FigureCanvasTkAgg(fig_1, master=exercise_one)  # A tk.DrawingArea
+canvas_one.get_tk_widget().place(x=475, y=270, width=300, height=325)
+canvas_one.draw()
 
 # ------- exercise two page -------
 data = np.array([])
 condition = False
 
 background_img_e2 = PhotoImage(file=f"side-lying_bkgd.png")
-frame1_title = tk.Label(exercise_two, text="this is frame one", image=background_img_e2, bg='white')
-frame1_title.place(x=0, y=0)
+frame2_title = tk.Label(exercise_two, text="this is exercise two", image=background_img_e2, bg='white')
+frame2_title.place(x=0, y=0)
 
 # buttons
-start_btn = PhotoImage(file=f"start_btn.png")
-end_btn = PhotoImage(file=f"end_btn.png")
-results_btn = PhotoImage(file=f"results_btn.png")
+start_btn_2 = PhotoImage(file=f"start_btn.png")
+end_btn_2 = PhotoImage(file=f"end_btn.png")
+results_btn_2 = PhotoImage(file=f"results_btn.png")
 
-btn_start = Button(exercise_two, image=start_btn, borderwidth=0, highlightthickness=0, command=plot_start, relief="flat")
+btn_start = Button(exercise_two, image=start_btn_2, borderwidth=0, highlightthickness=0, command=plot_start, relief="flat")
 btn_start.place(x=526, y=20, width=200, height=76)
 
-btn_end = Button(exercise_two, image=end_btn, borderwidth=0, highlightthickness=0, command=plot_end, relief="flat")
+btn_end = Button(exercise_two, image=end_btn_2, borderwidth=0, highlightthickness=0, command=plot_end, relief="flat")
 btn_end.place(x=526, y=105, width=200, height=76)
 
-btn_results = Button(exercise_two, image=results_btn, borderwidth=0, highlightthickness=0, command=lambda: [change_data_text(), show_frame(result)],
+btn_results = Button(exercise_two, image=results_btn_2, borderwidth=0, highlightthickness=0, command=lambda: [change_data_text(), show_frame(result)],
             relief="flat")
 btn_results.place(x=526, y=190, width=200, height=76)
 
 # adding in graph
-fig = Figure()
-ax = fig.add_subplot(111)
+fig_2 = Figure()
+ax_2 = fig_2.add_subplot(111)
 
-ax.set_title('Degrees vs. # of Data Points')
-ax.set_ylabel('Degrees')
-ax.set_ylim(-180, 360)
-ax.set_xlim(0, 50)
-lines = ax.plot([], [])[0]  # this gives an array that is varying moved as global variable
+ax_2.set_title('Degrees vs. # of Data Points')
+ax_2.set_ylabel('Degrees')
+ax_2.set_ylim(-180, 360)
+ax_2.set_xlim(0, 50)
+lines_2 = ax_2.plot([], [])[0]  # this gives an array that is varying moved as global variable
 
-canvas = FigureCanvasTkAgg(fig, master=exercise_two)  # A tk.DrawingArea
-canvas.get_tk_widget().place(x=475, y=270, width=300, height=325)
-canvas.draw()
-
+canvas_two = FigureCanvasTkAgg(fig_2, master=exercise_two)  # A tk.DrawingArea
+canvas_two.get_tk_widget().place(x=475, y=270, width=300, height=325)
+canvas_two.draw()
 
 # --------- Result page -----------
 background_img_results = PhotoImage(file=f"results_bkgd.png")
@@ -267,8 +275,6 @@ global force_label
 force_label = Label(result, text=global_var.force_value_text, font=f,
       bg='#FDF6EC')
 force_label.place(x=375, y=285)
-
-
 
 window.after(1, plot_data)
 print("looping")

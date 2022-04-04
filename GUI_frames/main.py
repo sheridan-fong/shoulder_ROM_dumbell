@@ -187,42 +187,41 @@ canvas.get_tk_widget().place(x=475, y=270, width=300, height=325)
 canvas.draw()
 
 # ------- exercise two page -------
-# data = np.array([])
-# condition = False
-#
-# background_img_e1 = PhotoImage(file=f"reverse_fly_bkgd.png")
-# frame1_title = tk.Label(exercise_one, text="this is frame one", image=background_img_e1, bg='white')
-# frame1_title.place(x=0, y=0)
-#
-# # buttons
-# start_btn = PhotoImage(file=f"start_btn.png")
-# end_btn = PhotoImage(file=f"end_btn.png")
-# results_btn = PhotoImage(file=f"results_btn.png")
-#
-# b0 = Button(exercise_one, image=start_btn, borderwidth=0, highlightthickness=0, command=plot_start, relief="flat")
-# b0.place(x=526, y=20, width=200, height=76)
-#
-# b1 = Button(exercise_one, image=end_btn, borderwidth=0, highlightthickness=0, command=plot_end, relief="flat")
-# b1.place(x=526, y=105, width=200, height=76)
-#
-# b2 = Button(exercise_one, image=results_btn, borderwidth=0, highlightthickness=0, command=lambda: [change_data_text(), show_frame(result)],
-#             relief="flat")
-# b2.place(x=526, y=190, width=200, height=76)
-#
-# # adding in graph
-# fig = Figure()
-# ax = fig.add_subplot(111)
-#
-# ax.set_title('Degrees vs. # of Data Points')
-# ax.set_ylabel('Degrees')
-# ax.set_ylim(-180, 360)
-# ax.set_xlim(0, 50)
-# lines = ax.plot([], [])[0]  # this gives an array that is varying moved as global variable
-#
-# canvas = FigureCanvasTkAgg(fig, master=exercise_one)  # A tk.DrawingArea
-# canvas.get_tk_widget().place(x=475, y=270, width=300, height=325)
-# canvas.draw()
-#
+data = np.array([])
+condition = False
+
+background_img_e2 = PhotoImage(file=f"side-lying_bkgd.png")
+frame1_title = tk.Label(exercise_two, text="this is frame one", image=background_img_e2, bg='white')
+frame1_title.place(x=0, y=0)
+
+# buttons
+start_btn = PhotoImage(file=f"start_btn.png")
+end_btn = PhotoImage(file=f"end_btn.png")
+results_btn = PhotoImage(file=f"results_btn.png")
+
+btn_start = Button(exercise_two, image=start_btn, borderwidth=0, highlightthickness=0, command=plot_start, relief="flat")
+btn_start.place(x=526, y=20, width=200, height=76)
+
+btn_end = Button(exercise_two, image=end_btn, borderwidth=0, highlightthickness=0, command=plot_end, relief="flat")
+btn_end.place(x=526, y=105, width=200, height=76)
+
+btn_results = Button(exercise_two, image=results_btn, borderwidth=0, highlightthickness=0, command=lambda: [change_data_text(), show_frame(result)],
+            relief="flat")
+btn_results.place(x=526, y=190, width=200, height=76)
+
+# adding in graph
+fig = Figure()
+ax = fig.add_subplot(111)
+
+ax.set_title('Degrees vs. # of Data Points')
+ax.set_ylabel('Degrees')
+ax.set_ylim(-180, 360)
+ax.set_xlim(0, 50)
+lines = ax.plot([], [])[0]  # this gives an array that is varying moved as global variable
+
+canvas = FigureCanvasTkAgg(fig, master=exercise_two)  # A tk.DrawingArea
+canvas.get_tk_widget().place(x=475, y=270, width=300, height=325)
+canvas.draw()
 
 
 # --------- Result page -----------

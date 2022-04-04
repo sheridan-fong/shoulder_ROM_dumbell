@@ -8,8 +8,10 @@ def btn_clicked():
     print("Button Clicked")
 
 def home():
-    root.withdraw()
+    root.destroy()
+    print("trying to import main again")
     import main
+    print('failed to import main')
 
 
 root = Tk()
@@ -73,5 +75,5 @@ Label(
 ).place(x=375, y = 195)
 
 root.resizable(False, False)
-print('made it to end page 1')
+print('made it to end page 2')
 root.mainloop()

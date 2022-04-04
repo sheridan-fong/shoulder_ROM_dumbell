@@ -72,5 +72,6 @@ b1.place(
     width = 200,
     height = 76)
 
+print("in main page")
 window.resizable(False, False)
 window.mainloop()

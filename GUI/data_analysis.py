@@ -73,6 +73,10 @@ def force_analysis():
 
     total = 0
     # take top five data points
+
+    if(len(sorted_force_data) < 5):
+        sorted_force_data = [0,0,0,0,0]
+
     for i in range(5):
         total = sorted_force_data[i]
 

@@ -1,3 +1,8 @@
+# solved prominent invalid command name : https://stackoverflow.com/questions/36402134/tkinter-root-after-cancel
+# stackoverflow instead of using destory hide https://stackoverflow.com/questions/60364577/i-want-to-destroy-a-window-and-then-re-open-it-tkinter#:~:text=After%20you%20destroy%20this%20window,make%20it%20hide%20or%20show.
+
+
+
 from tkinter import *
 import threading
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
@@ -74,7 +79,8 @@ def plot_data():
         lines.set_ydata(data)
         canvas.draw()
 
-    window.after(1, plot_data)
+    global AFTER
+    AFTER = window.after(1, plot_data)
 
 def plot_start():
     global condition
@@ -85,9 +91,7 @@ def plot_start():
 def plot_end():
     global condition
     condition = False
-
     data_analysis.rom_analysis()
-    results()
     btn_clicked()
 
 
@@ -97,33 +101,46 @@ def btn_clicked():
 
 #https://stackoverflow.com/questions/63628566/how-to-handle-invalid-command-name-error-while-executing-after-script-in-tk
 def results():
-    window.destroy()
+    # window.quit()
+    window.withdraw()
     import end_pg
 
 def callback():
     global after_id
     var.set(var.get() + 1)
     after_id = window.after(500,callback)
+    # print('in callback function')
+    window.protocol('WM_DELETE_WINDOW', quit)
 
 def quit():
+    global AFTER
     "Cancel all scheduled callbacks and quit."
-    window.after_cancel(after_id)
+    window.after_cancel(AFTER)
     window.destroy()
+    print("made it to quit")
+    open_end_pg()
+    # import end_pg
 
+def open_end_pg():
+    print("before here")
+    import end_pg
+    # print("after issue")
+    # import end_pg2
+    # print("made it to second after")
+    # import main
+    # print("failed to import main in exercise_one")
 
 # ------ no functions just tkinter window stuff ------
-
-
 img0 = PhotoImage(file =f"start_btn.png")
 b0 = Button(
     image = img0,
     borderwidth = 0,
     highlightthickness = 0,
-    command = lambda:[plot_start()],
+    command = plot_start,
     relief = "flat")
 
 b0.place(
-    x = 526, y = 65,
+    x = 526, y = 20,
     width = 200,
     height = 76)
 
@@ -133,17 +150,40 @@ b1 = Button(
     borderwidth = 0,
     highlightthickness = 0,
     command = plot_end,
+    # command = lambda:[plot_end(), callback()],
     # command = lambda:[plot_end(), data_analysis.rom_analysis(), results(), btn_clicked()],
     relief = "flat")
 
 b1.place(
-    x = 526, y = 171,
+    x = 526, y = 105,
     width = 200,
     height = 76)
 
+img2 = PhotoImage(file =f"results_btn.png")
+b2 = Button(
+    image = img2,
+    borderwidth = 0,
+    highlightthickness = 0,
+    command = quit,
+    # command = lambda:[plot_end(), callback()],
+    # command = lambda:[plot_end(), data_analysis.rom_analysis(), results(), btn_clicked()],
+    relief = "flat")
+
+b2.place(
+    x = 526, y = 190,
+    width = 200,
+    height = 76)
 
 window.resizable(
     False, False)
 
+# # # ---- code from stackoverflow
+var = tk.IntVar()
+# window.pack_propagate(False)
+# tk.Label(window, textvariable=var).pack()
+# callback()
+# window.protocol('WM_DELETE_WINDOW', quit)
+
+# ----- plotting code from youtube ------
 window.after(1, plot_data)
 window.mainloop()

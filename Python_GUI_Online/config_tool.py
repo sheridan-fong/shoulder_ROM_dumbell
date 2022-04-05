@@ -13,3 +13,5 @@ my_label.pack(pady=10)
 
 my_button = Button(root, text = "Click me", command=something)
 my_button.pack(pady=10)
+
+root.mainloop()

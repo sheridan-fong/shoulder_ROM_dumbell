@@ -8,7 +8,7 @@ import datetime
 
 
 def rom_analysis():
-    plt.close()  # could maybe take out
+    # plt.close()  # could maybe take out
 
     # getting maximum and minimum values and finding the difference
     minimum = min(global_var.euler_data)
@@ -20,24 +20,28 @@ def rom_analysis():
 
     # choosing the correct phrase to output to the screen for reverse fly and side-lying rotation
     # sheridan to separate into new line
+    print("exercise one status",global_var.exercise_one)
+
     if global_var.exercise_one:
+        print("exercise_one_phrases")
         if global_var.rom >= 90:
-            global_var.rom_phrase = "Congrats, you have FANTASTIC ROM"
+            global_var.rom_phrase = "Congrats, you have \n FANTASTIC ROM"
         elif global_var.rom >= 75:
-            global_var.rom_phrase = "You're almost there, you're doing AMAZING"
+            global_var.rom_phrase = "You're almost there, \n you're doing AMAZING"
         elif global_var.rom >= 45:
-            global_var.rom_phrase = "Keep going, you are more than halfway there!"
+            global_var.rom_phrase = "Keep going, you are \n more than halfway there!"
         else:
-            global_var.rom_phrase = "You still have quite a ways to go, but I believe in you"
-    elif global_var.exercise_one:
+            global_var.rom_phrase = "You still have quite a \n ways to go,\n but I believe in you"
+    elif global_var.exercise_one != True:
+        print("exercise_two_phrases")
         if global_var.rom >= 180:
-            global_var.rom_phrase = "Congrats, you have FANTASTIC ROM"
+            global_var.rom_phrase = "Congrats, you have \n FANTASTIC ROM"
         elif global_var.rom >= 135:
-            global_var.rom_phrase = "You're almost there, you're doing AMAZING"
+            global_var.rom_phrase = "You're almost there, \n you're doing AMAZING"
         elif global_var.rom >= 90:
-            global_var.rom_phrase = "Keep going, you are more than halfway there!"
+            global_var.rom_phrase = "Keep going, you are \n more than halfway there!"
         else:
-            global_var.rom_phrase = "You still have quite a ways to go, but I believe in you"
+            global_var.rom_phrase = "You still have quite a \n ways to go,\n but I believe in you"
 
     # sheridan to call in force function to do analysis and then write to data
     global_var.force_value_text = force_analysis()
@@ -176,7 +180,10 @@ def save_graph():
     plt.plot(x_values, y_values, "go-")
 
     # plt.ylim(0, 360)
-    plt.title("Range of Motion Data over Time")
+    if global_var.exercise_one:
+        plt.title("Reverse Fly ROM Data over Time")
+    else:
+        plt.title("Rotation ROM Data over Time")
 
     if global_var.exercise_one:
         plt.savefig('euler_reverse.png')
@@ -184,5 +191,3 @@ def save_graph():
         plt.savefig('euler_rotation.png')
 
     plt.close()
-
-

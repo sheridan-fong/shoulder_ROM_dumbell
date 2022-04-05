@@ -21,7 +21,7 @@ canvas = Canvas(
     relief = "ridge")
 canvas.place(x = 0, y = 0)
 
-background_img = PhotoImage(file = f"background.png")
+background_img = PhotoImage(file =f"side-lying.png")
 background = canvas.create_image(
     207.5, 307.5,
     image=background_img)

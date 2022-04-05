@@ -3,14 +3,14 @@ from PIL import ImageTk, Image
 
 import global_var
 
-
 def btn_clicked():
     print("Button Clicked")
 
 def home():
-    root.withdraw()
+    root.destroy()
+    # from main import window
+    # window.deiconify
     import main
-
 
 root = Tk()
 

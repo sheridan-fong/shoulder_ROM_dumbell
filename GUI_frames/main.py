@@ -53,7 +53,6 @@ def plot_data():
             lines_2.set_ydata(data)
 
         if global_var.exercise_one:
-            print(global_var.exercise_one)
             canvas_one.draw()
         else:
             canvas_two.draw()
@@ -86,18 +85,18 @@ def change_data_text():
     global force_label
     global label_force_img
     global label_angle_img
+    global word_label
 
     print("changing ROM")
     rom_label.configure(text=global_var.rom_value_text)
     force_label.configure(text=global_var.force_value_text)
-
+    word_label.configure(text=global_var.rom_phrase)
 
     img_force = Image.open("force.png")
     img_force = img_force.resize((250, 250), Image.ANTIALIAS)
     img_force = ImageTk.PhotoImage(img_force)
-    label_force = Label(result, image=img_force)
-    label_force.image = img_force
-    label_force.place(x=515, y=299)
+    label_force_img.configure(image = img_force)
+    label_force_img.image = img_force
 
 
     if global_var.exercise_one:
@@ -105,11 +104,10 @@ def change_data_text():
     else:
         img = Image.open("euler_rotation.png")
 
-    img = img.resize((250, 250), Image.ANTIALIAS)
-    img = ImageTk.PhotoImage(img)
-    label1 = Label(image=img)
-    label1.image = img
-    label1.place(x=26, y=299)
+    img_angle = img.resize((250, 250), Image.ANTIALIAS)
+    img_angle = ImageTk.PhotoImage(img_angle)
+    label_angle_img.configure(image=img_angle)
+    label_angle_img.image = img_angle
 
 # function i'm not sure I need rn
 # def callback():
@@ -275,6 +273,11 @@ global force_label
 force_label = Label(result, text=global_var.force_value_text, font=f,
       bg='#FDF6EC')
 force_label.place(x=375, y=285)
+
+global word_label
+word_label= Label(result, text=global_var.rom_phrase, font=f, bg='#FDF6EC')
+word_label.place(x=295, y = 380)
+
 
 window.after(1, plot_data)
 print("looping")

@@ -35,21 +35,37 @@ def plot_data():
         data_array = arduinoString.decode().split(',')  # split on comma
 
         # keeps only 100 data points
+
+        print("this is exercise one status",exercise_one)
         if len(data) < 50:
-            data = np.append(data, float(data_array[0]))
+            if global_var.exercise_one:
+                data = np.append(data, float(data_array[0]))
+            else:
+                data = np.append(data, float(data_array[1]))
         else:
             data[0:49] = data[1:50]
-            data[49] = float(data_array[0])
 
-        global_var.euler_data.append(float(data_array[0]))
+            if global_var.exercise_one:
+                data[49] = float(data_array[0])
+            else:
+                data[49] = float(data_array[1])
+
+        if global_var.exercise_one:
+            global_var.euler_data.append(float(data_array[0]))
+        else:
+            # print("this is the 2nd exercise")
+            # print("data for x",data_array[0])
+            # print("data for z",data_array[1])
+            global_var.euler_data.append(float(data_array[1]))
         # force data
-        global_var.force_data.append(float(data_array[1]))
+        global_var.force_data.append(float(data_array[2]))
 
         if global_var.exercise_one:
             lines_1.set_xdata(np.arange(start=0, stop=len(data), step=1))
             lines_1.set_ydata(data)
         else:
             lines_2.set_xdata(np.arange(start=0, stop=len(data), step=1))
+            print("z data:", data)
             lines_2.set_ydata(data)
 
         if global_var.exercise_one:
@@ -89,7 +105,10 @@ def change_data_text():
 
     print("changing ROM")
     rom_label.configure(text=global_var.rom_value_text)
-    force_label.configure(text=global_var.force_value_text)
+    force_value_units = global_var.force_value_text + " N"
+    force_label.configure(text=force_value_units)
+
+    # force_label.configure(text=global_var.force_value_text)
     word_label.configure(text=global_var.rom_phrase)
 
     img_force = Image.open("force.png")

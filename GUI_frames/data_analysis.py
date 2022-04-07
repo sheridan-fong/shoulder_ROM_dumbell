@@ -11,9 +11,22 @@ def rom_analysis():
     # plt.close()  # could maybe take out
 
     # getting maximum and minimum values and finding the difference
-    minimum = min(global_var.euler_data)
-    maximum = max(global_var.euler_data)
-    global_var.rom = abs(maximum - minimum)
+    if global_var.exercise_one:
+        minimum = abs(min(global_var.euler_data))
+        maximum = abs(max(global_var.euler_data))
+        global_var.rom = abs(maximum - minimum)
+    else:
+        absolute_euler_data = []
+        for point in global_var.euler_data:
+            absolute_euler_point = abs(point)
+            absolute_euler_data.append(absolute_euler_point)
+
+        # print("absolute z",absolute_euler_data)
+
+        maximum_point = max(absolute_euler_data)
+        minimum_point = min(absolute_euler_data)
+        global_var.rom = (maximum_point - minimum_point)
+
     answer = str(round(global_var.rom, 2))
     global_var.rom_value_text = "{}".format(answer)
     print("rom value text",global_var.rom_value_text)
@@ -31,7 +44,7 @@ def rom_analysis():
         elif global_var.rom >= 45:
             global_var.rom_phrase = "Keep going, you are \n more than halfway there!"
         else:
-            global_var.rom_phrase = "You still have quite a \n ways to go,\n but I believe in you"
+            global_var.rom_phrase = "You still have quite a \n ways to go,\n but I believe in you! :)"
     elif global_var.exercise_one != True:
         print("exercise_two_phrases")
         if global_var.rom >= 180:
@@ -90,7 +103,13 @@ def force_analysis():
 
     # print("this is the avg: force_data: ", str(round(average,2)))
 
-    return str(round(average, 2))
+    calibrated_data = max(sorted_force_data) + 30
+    # just taking the maximum now
+
+    calibrated_phrase = str(calibrated_data)
+    return calibrated_phrase
+
+    # return str(round(average, 2))
 
 def force_save_graph():
     # reading the text file
